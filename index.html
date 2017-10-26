@@ -69,17 +69,19 @@
     });
     geojsonLayer.addTo(mymap);
 
-    var steps = new L.GeoJSON.AJAX("data/steps.geojson", {
-      pointToLayer: function(feature, latlng) {
-        return L.circleMarker(latlng,geojsonMarkerOptions);
-      }
-    });
+
+
+    // var steps = new L.GeoJSON.AJAX("data/steps.geojson", {
+    //   pointToLayer: function(feature, latlng) {
+    //     return L.circleMarker(latlng,geojsonMarkerOptions);
+    //   }
+    // });
 
     // steps.on('click', function(e){
     //   mymap.setView(e.latlng, 13); }
     // )
 
-    steps.addTo(mymap);
+    // steps.addTo(mymap);
 
     // var popup = L.popup();
     //
