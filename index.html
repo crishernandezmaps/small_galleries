@@ -1,15 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin=""/>
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <div id="map"></div>
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
-    <script src="js/leaflet.ajax.min.js" type="text/javascript"></script>
-    <script src='js/mapping.js' type="text/javascript"></script>
-  </body>
+<head>
+  <title>Small Galleries</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="" />
+  <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+    <![endif]-->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style media="screen">
+    #map {
+      width: 100%;
+      height: 100vh;
+      /*height: 500px;*/
+      margin: 0 auto;
+      vertical-align: middle;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
+  <script src="js/leaflet.ajax.min.js" type="text/javascript"></script>
+  <script src="http://maps.stamen.com/js/tile.stamen.js?v1.2.3" type="text/javascript"></script>
+
+  <!-- MAP -->
+  <script>
+    var layer = new L.StamenTileLayer("toner");
+    var mymap = new L.Map("map", {
+      center: new L.LatLng(51.51798, -0.20827),
+      zoom: 15
+    });
+    mymap.addLayer(layer);
+
+    var geojsonMarkerOptions = {
+      radius: 10,
+      fillColor: "rgb(255,0,195)",
+      color: "#fff",
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 1
+    };
+
+    function onEachFeature(feature, layer) {
+      layer.bindPopup(feature.properties.Gallery + '<br>' +
+        feature.properties.Address + '<br>' +
+        feature.properties.Postcode + '<br>' +
+        feature.properties.Web);
+    }
+
+    var geojsonLayer = new L.GeoJSON.AJAX("data/coordinates.geojson", {
+      pointToLayer: function(feature, latlng) {
+        var popupOptions = {
+          maxWidth: 200
+        };
+        var popupContent = "This is some content";
+        return L.circleMarker(latlng, geojsonMarkerOptions).bindPopup(popupContent, popupOptions);
+      },
+      onEachFeature: onEachFeature
+    });
+
+    geojsonLayer.addTo(mymap);
+  </script>
+  <!-- MAP -->
+  
+</body>
 </html>
