@@ -74,9 +74,11 @@
         return L.circleMarker(latlng,geojsonMarkerOptions);
       }
     });
-    steps.on('click', function(e){
-      mymap.setView(e.latlng, 13); }
-    )
+
+    // steps.on('click', function(e){
+    //   mymap.setView(e.latlng, 13); }
+    // )
+
     steps.addTo(mymap);
 
     // var popup = L.popup();
