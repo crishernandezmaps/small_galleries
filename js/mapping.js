@@ -8,13 +8,13 @@ L.tileLayer('https://api.mapbox.com/styles/v1/crishernandezco/ciubia0tp005t2iodb
 var geojsonLayer = new L.GeoJSON.AJAX("data/coordinates.geojson");
 geojsonLayer.addTo(mymap);
 
-var popup = L.popup();
-
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(mymap);
-}
-
-mymap.on('click', onMapClick);
+// var popup = L.popup();
+//
+// function onMapClick(e) {
+//     popup
+//         .setLatLng(e.latlng)
+//         .setContent("You clicked the map at " + e.latlng.toString())
+//         .openOn(mymap);
+// }
+//
+// mymap.on('click', onMapClick);
